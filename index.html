@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Don't Let Go!</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div class="game-container">
+        <h1>Hold the Button</h1>
+        <p id="status-text">Press and hold. Do not let go.</p>
+        <h2 id="timer">0.00s</h2>
+        
+        <div id="game-area">
+            <button id="the-button"></button>
+        </div>
+    </div>
+
+    <div id="fake-battery-popup" class="hidden">
+        <div class="battery-box">
+            <h3>Low Battery</h3>
+            <p>20% battery remaining.</p>
+            <button id="fake-close-btn">Close</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
