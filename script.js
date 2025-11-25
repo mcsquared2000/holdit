@@ -9,7 +9,6 @@ const theButton = document.getElementById('the-button');
 const timerDisplay = document.getElementById('timer');
 const statusText = document.getElementById('status-text');
 const gameContainer = document.querySelector('.game-container');
-const batteryPopup = document.getElementById('fake-battery-popup');
 
 // --- EVENT LISTENERS ---
 // We use pointer events for better cross-device handling (touch and mouse)
@@ -93,19 +92,26 @@ function runSabotageLogic(time) {
         if (navigator.vibrate && Math.random() > 0.90) navigator.vibrate(100);
     }
 
-     // --- Phase 3: The Fakeout (18 seconds) ---
-     // This is the killer. It pops up over the button. 
-     // If they tap "Close", they lifted their finger. Game over.
-     if (time > 18 && time < 18.1) {
-         statusText.textContent = "SYSTEM ERROR";
-         batteryPopup.classList.remove('hidden');
-         // Long vibration to sell the fake alert
-         if (navigator.vibrate) navigator.vibrate(400);
+     // --- Phase 3: PSYCHEDELIC MODE (18 seconds) ---
+     // Replaced the battery popup with visual chaos and shrinking
+     if (time > 18 && time < 25) {
+         statusText.textContent = "DON'T LOOK AWAY!";
+         
+         // Flash the background colors
+         if (!document.body.classList.contains('psychedelic-mode')) {
+             document.body.classList.add('psychedelic-mode');
+         }
+         
+         // Shrink the button so it's harder to hold
+         if (!theButton.classList.contains('shrink-button')) {
+            theButton.classList.add('shrink-button');
+         }
+
+         if (navigator.vibrate) navigator.vibrate(50); // Constant buzzing
      }
 
      // --- Phase 4: Chaos (25 seconds+) ---
      if (time > 25) {
-        batteryPopup.classList.add('hidden'); // hide the battery if they survived it
         statusText.textContent = "WHY ARE YOU STILL HERE?";
         // Shake the whole screen
         if (!gameContainer.classList.contains('screen-shake')) {
@@ -121,8 +127,10 @@ function runSabotageLogic(time) {
 function resetSabotage() {
     statusText.style.color = "#eee";
     theButton.classList.remove('moving-button');
+    theButton.classList.remove('shrink-button'); 
     gameContainer.classList.remove('screen-shake');
-    batteryPopup.classList.add('hidden');
+    document.body.classList.remove('psychedelic-mode');
+    
     // Stop any ongoing vibrations
     if (navigator.vibrate) navigator.vibrate(0);
 }
